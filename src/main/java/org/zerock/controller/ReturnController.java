@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.Member;
 
 import lombok.extern.log4j.Log4j;
@@ -132,6 +133,29 @@ public class ReturnController {
 		return "/ret/c";
 	}
 	
+	@RequestMapping("/l")
+	public String methodl(Model model, RedirectAttributes rttr) {
+		log.info("l method");
+		
+		model.addAttribute("myAttr1", "myValue1");
+		rttr.addFlashAttribute("myRedirectAttr1", "myRedirectValue1"); //휘발성
+		rttr.addAttribute("myRedirectAttr2", "myRedirectValue2");
+		
+//		String contextPath = request.getContextPath();
+//		response.sendRedirect(contextPath + "/ret/m");
+		
+		return "redirect:/ret/m";
+//		return "redirect:m"; 상대경로도 동일
+	}
+	
+	@RequestMapping("/m")
+	public String methodm(Model model) {
+		log.info("m method");
+		
+//		model.addAttribute("myAttr1", "myValue1");
+		
+		return "/ret/m";
+	}
 	
 	
 }
